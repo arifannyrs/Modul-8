@@ -15,7 +15,11 @@ class BlogPost extends Component {
     }
 
     ambilDataDariServerAPI = () => {                // fungsi untuk mengambil data dari API dengan penambahan sort dan order
-        
+        API.getNewsBlog().then(result => {
+            this.setState({
+                listArtikel: result
+            })
+        })
     }
 
     componentDidMount() {       // komponen untuk mengecek ketika compnent telah di-mount-ing, maka panggil API
@@ -52,10 +56,7 @@ class BlogPost extends Component {
         //     },
         //     body: JSON.stringify(this.state.insertArtikel)      // kirimkan ke body request untuk data artikel yang akan ditambahkan (insert)
         // })
-        API.postNewsBlog(this.state.insertArtikel)
-            .then((response) => {
-                this.ambilDataDariServerAPI();                  // reload / refresh data
-            });
+        
     }
 
     render() {

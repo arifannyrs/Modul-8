@@ -15,11 +15,15 @@ class BlogPost extends Component {
     }
 
     ambilDataDariServerAPI = () => {                // fungsi untuk mengambil data dari API dengan penambahan sort dan order
+        // fetch('http://localhost:3001/posts?_sort=id&_order=desc')  // penambahan sort dan order berdasarkan parameter
+        //     .then(response => response.json())      // ubah response data dari URL API menjadi sebuah data json
+        //     .then(jsonHasilAmbilDariAPI => {        // data json hasil ambil dari API kita masukkan ke dalam listArtikel pada state
         API.getNewsBlog().then(result => {
             this.setState({
                 listArtikel: result
             })
         })
+        // })
     }
 
     componentDidMount() {       // komponen untuk mengecek ketika compnent telah di-mount-ing, maka panggil API
@@ -27,10 +31,14 @@ class BlogPost extends Component {
     }
 
     handleHapusArtikel = (data) => {        // fungsi yang meng-handle button action hapus data
+        // fetch(`http://localhost:3001/posts/${data}`, { method: 'DELETE' })  // alamat URL API yang ingin kita HAPUS datanya
+        //     .then(res => {      // ketika proses hapus berhasil, maka ambil data dari server API lokal
+        //         this.ambilDataDariServerAPI()
+        //     })
         API.deleteNewBlog(data)
-        .then(response => {      // ketika proses hapus berhasil, maka ambil data dari server API lokal
-            this.ambilDataDariServerAPI()
-        })
+            .then(response => {      // ketika proses hapus berhasil, maka ambil data dari server API lokal
+                this.ambilDataDariServerAPI()
+            })
     }
 
     handleTambahArtikel = (event) => {      // fungsi untuk meng-hadle form tambah data artikel
@@ -52,7 +60,10 @@ class BlogPost extends Component {
         //     },
         //     body: JSON.stringify(this.state.insertArtikel)      // kirimkan ke body request untuk data artikel yang akan ditambahkan (insert)
         // })
-
+        API.postNewsBlog(this.state.insertArtikel)
+            .then((response) => {
+                this.ambilDataDariServerAPI();                  // reload / refresh data
+            });
     }
 
     render() {

@@ -1,14 +1,8 @@
 import { domainPath } from './Config';
-
-const PostAPI = (path, data) => {
+const DeleteAPI = (path, data) => {
     const promise = new Promise((resolve, reject) => {
-        fetch(`${domainPath}/${path}`, {
-            method: "post",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+        fetch(`${domainPath}/${path}/${data}`, {
+            method: "DELETE"
         })
             .then((result) => {
                 resolve(result)
@@ -18,5 +12,4 @@ const PostAPI = (path, data) => {
     })
     return promise;
 }
-
-export default PostAPI;
+export default DeleteAPI;

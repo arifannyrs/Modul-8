@@ -1,1 +1,1 @@
-export const domainPath = "http://localhost:3000";
+export const domainPath = "http://localhost:3001";
